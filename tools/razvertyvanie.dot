@@ -1,0 +1,24 @@
+digraph R {
+  graph [rankdir=TB, nodesep=0.25, ranksep=0.45, fontname="Times New Roman", fontsize=12, compound=true];
+  node [shape=box, fontname="Times New Roman", fontsize=11, margin="0.10,0.05"];
+  edge [fontname="Times New Roman", fontsize=9, arrowsize=0.7, color="#444444"];
+  ans [label="Ansible:\ndeploy, run, backup, restore", style="filled", fillcolor="#dbe5f1"];
+  subgraph cluster_host { label="Сервер Linux, Docker Compose"; style=rounded; color="#3b6ea5";
+    db [label="db: PostgreSQL 17\nпроверка здоровья по сети", style="filled", fillcolor="#dbe5f1"];
+    vol [label="Том dbdata", shape=cylinder, style="filled", fillcolor="#e8f0e0"];
+    sppr [label="sppr: компонент\nзапуск по требованию", style="filled", fillcolor="#dbe5f1"];
+    timer [label="Ежедневный запуск\nпо расписанию", style="filled,dashed", fillcolor="#ffffff"];
+    bk [label="Резервные копии\npg_dump", style="filled", fillcolor="#dbe5f1"];
+    pexp [label="postgres_exporter,\nnode_exporter", style="filled,dashed", fillcolor="#ffffff"];
+    prom [label="Prometheus", style="filled,dashed", fillcolor="#ffffff"];
+    graf [label="Grafana:\nпанели и оповещения", style="filled,dashed", fillcolor="#ffffff"];
+  }
+  off [label="Внешнее хранилище копий", style="filled,dashed", fillcolor="#ffffff"];
+  ans -> db [label="настройка", lhead=cluster_host];
+  db -> vol [dir=none];
+  timer -> sppr [style=dashed]; sppr -> db [label="расчёт"];
+  db -> bk [label="копия"]; bk -> off [style=dashed];
+  db -> pexp [style=dashed]; pexp -> prom [style=dashed];
+  sppr -> prom [label="status.json", style=dashed];
+  prom -> graf [style=dashed];
+}
