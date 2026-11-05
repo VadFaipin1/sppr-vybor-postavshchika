@@ -1,0 +1,100 @@
+digraph DFD {
+  graph [overlap=false, splines=true, K=1.6, nodesep=0.45, fontname="Times New Roman", fontsize=12];
+  node [fontname="Times New Roman", fontsize=11];
+  edge [fontname="Times New Roman", fontsize=9, color="#444444"];
+  klient [shape=box, style=filled, fillcolor="#fdebd0", label="Клиент"];
+  postavshchik [shape=box, style=filled, fillcolor="#fdebd0", label="Поставщик"];
+  rukovoditel [shape=box, style=filled, fillcolor="#fdebd0", label="Руководитель
+отдела закупок"];
+  p1 [shape=plaintext, label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="ROUNDED" BGCOLOR="#dbe5f1">
+      <TR><TD ALIGN="LEFT"><B>1</B></TD></TR>
+      <TR><TD>Учёт продаж<BR/>и остатков</TD></TR>
+    </TABLE>>];
+  p2 [shape=plaintext, label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="ROUNDED" BGCOLOR="#dbe5f1">
+      <TR><TD ALIGN="LEFT"><B>2</B></TD></TR>
+      <TR><TD>Расчёт потребности<BR/>в закупке</TD></TR>
+    </TABLE>>];
+  p3 [shape=plaintext, label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="ROUNDED" BGCOLOR="#dbe5f1">
+      <TR><TD ALIGN="LEFT"><B>3</B></TD></TR>
+      <TR><TD>Оценка и выбор<BR/>поставщика</TD></TR>
+    </TABLE>>];
+  p4 [shape=plaintext, label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="ROUNDED" BGCOLOR="#dbe5f1">
+      <TR><TD ALIGN="LEFT"><B>4</B></TD></TR>
+      <TR><TD>Формирование<BR/>и размещение заказа</TD></TR>
+    </TABLE>>];
+  p5 [shape=plaintext, label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="ROUNDED" BGCOLOR="#dbe5f1">
+      <TR><TD ALIGN="LEFT"><B>5</B></TD></TR>
+      <TR><TD>Приёмка<BR/>и оприходование</TD></TR>
+    </TABLE>>];
+  p6 [shape=plaintext, label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="4" STYLE="ROUNDED" BGCOLOR="#dbe5f1">
+      <TR><TD ALIGN="LEFT"><B>6</B></TD></TR>
+      <TR><TD>Отгрузка клиенту</TD></TR>
+    </TABLE>>];
+  d1 [shape=plaintext, label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+      <TR>
+        <TD SIDES="TBL" BGCOLOR="#e8e8e8">D1</TD>
+        <TD SIDES="TB">Номенклатура и остатки</TD>
+      </TR>
+    </TABLE>>];
+  d2 [shape=plaintext, label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+      <TR>
+        <TD SIDES="TBL" BGCOLOR="#e8e8e8">D2</TD>
+        <TD SIDES="TB">Поставщики и прайсы</TD>
+      </TR>
+    </TABLE>>];
+  d3 [shape=plaintext, label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+      <TR>
+        <TD SIDES="TBL" BGCOLOR="#e8e8e8">D3</TD>
+        <TD SIDES="TB">История поставок</TD>
+      </TR>
+    </TABLE>>];
+  d4 [shape=plaintext, label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+      <TR>
+        <TD SIDES="TBL" BGCOLOR="#e8e8e8">D4</TD>
+        <TD SIDES="TB">История продаж</TD>
+      </TR>
+    </TABLE>>];
+  d5 [shape=plaintext, label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+      <TR>
+        <TD SIDES="TBL" BGCOLOR="#e8e8e8">D5</TD>
+        <TD SIDES="TB">Оценки поставщиков</TD>
+      </TR>
+    </TABLE>>];
+  klient -> p6 [label="заявка клиента"];
+  p6 -> klient [label="товар, УПД"];
+  p6 -> d4 [label="запись о продаже"];
+  p6 -> d1 [label="списание остатка"];
+  d1 -> p1 [label="остатки и резервы"];
+  d4 -> p1 [label="продажи за период"];
+  p1 -> p2 [label="средний спрос,
+вариация спроса"];
+  d1 -> p2 [label="текущий остаток"];
+  p2 -> p4 [label="потребность:
+позиция, количество"];
+  d2 -> p3 [label="цены и сроки"];
+  d3 -> p3 [label="исполнение
+обязательств"];
+  p3 -> d5 [label="баллы поставщиков"];
+  d5 -> p4 [label="рейтинг
+поставщиков"];
+  p4 -> rukovoditel [label="заказ
+на согласование"];
+  rukovoditel -> p4 [label="решение"];
+  p4 -> postavshchik [label="заказ"];
+  postavshchik -> p5 [label="поставка,
+документы"];
+  p5 -> d1 [label="приход на склад"];
+  p5 -> d3 [label="план и факт
+по поставке"];
+}

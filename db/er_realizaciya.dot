@@ -1,0 +1,72 @@
+digraph ER {
+  graph [rankdir=TB, splines=ortho, nodesep=0.30, ranksep=0.7, fontname="Times New Roman", fontsize=12, compound=true];
+  node [shape=plaintext, fontname="Times New Roman", fontsize=11];
+  edge [fontname="Times New Roman", fontsize=9, dir=both, color="#444444"];
+  subgraph cluster_0 {
+    label="Номенклатура и склад"; style="rounded"; color="#888888"; fontsize=12; margin=12;
+  tovar [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dbe5f1" ALIGN="CENTER"><B>Товар</B><BR/><FONT POINT-SIZE="9">tovar</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код товара</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="naimenovanie"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Название</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="gruppa_id"><FONT POINT-SIZE="9">ВК</FONT> Товарная группа</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="kratnost_upakovki"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Кратность упаковки</TD></TR>
+    </TABLE>>];
+  ostatok [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dbe5f1" ALIGN="CENTER"><B>Остаток на складе</B><BR/><FONT POINT-SIZE="9">ostatok</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ПК</FONT> <B>Товар</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="kolichestvo"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Количество на складе</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="rezerv"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Зарезервировано под заявки</TD></TR>
+    </TABLE>>];
+  }
+  subgraph cluster_3 {
+    label="Реализация"; style="rounded"; color="#888888"; fontsize=12; margin=12;
+  klient [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#fdebd0" ALIGN="CENTER"><B>Клиент</B><BR/><FONT POINT-SIZE="9">klient</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код клиента</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="naimenovanie"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Название</TD></TR>
+    </TABLE>>];
+  zayavka [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#fdebd0" ALIGN="CENTER"><B>Заявка клиента</B><BR/><FONT POINT-SIZE="9">zayavka</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Номер заявки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="klient_id"><FONT POINT-SIZE="9">ВК</FONT> Клиент</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="data"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Дата заявки</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="status"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Состояние заявки</TD></TR>
+    </TABLE>>];
+  stroka_zayavki [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#fdebd0" ALIGN="CENTER"><B>Строка заявки</B><BR/><FONT POINT-SIZE="9">stroka_zayavki</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код строки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="zayavka_id"><FONT POINT-SIZE="9">ВК</FONT> Заявка</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ВК</FONT> Товар</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="kolichestvo"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Запрошенное количество</TD></TR>
+    </TABLE>>];
+  otgruzka [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#fdebd0" ALIGN="CENTER"><B>Отгрузка</B><BR/><FONT POINT-SIZE="9">otgruzka</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код отгрузки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="zayavka_id"><FONT POINT-SIZE="9">ВК</FONT> Заявка</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="data"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Дата отгрузки</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="nomer_upd"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Номер УПД</TD></TR>
+    </TABLE>>];
+  stroka_otgruzki [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#fdebd0" ALIGN="CENTER"><B>Строка отгрузки</B><BR/><FONT POINT-SIZE="9">stroka_otgruzki</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код строки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="otgruzka_id"><FONT POINT-SIZE="9">ВК</FONT> Отгрузка</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ВК</FONT> Товар</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="kolichestvo"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Отгруженное количество</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="cena"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Цена продажи</TD></TR>
+    </TABLE>>];
+  }
+  klient -> zayavka:klient_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  otgruzka -> stroka_otgruzki:otgruzka_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  tovar -> ostatok:tovar_id [arrowtail=tee, arrowhead=tee, label="1:1"];
+  tovar -> stroka_otgruzki:tovar_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  tovar -> stroka_zayavki:tovar_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  zayavka -> otgruzka:zayavka_id [arrowtail=tee, arrowhead=tee, label="1:1"];
+  zayavka -> stroka_zayavki:zayavka_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+}

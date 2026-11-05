@@ -1,0 +1,105 @@
+digraph ER {
+  graph [rankdir=LR, splines=ortho, nodesep=0.30, ranksep=0.7, fontname="Times New Roman", fontsize=12, compound=true];
+  node [shape=plaintext, fontname="Times New Roman", fontsize=11];
+  edge [fontname="Times New Roman", fontsize=9, dir=both, color="#444444"];
+  subgraph cluster_0 {
+    label="Номенклатура и склад"; style="rounded"; color="#888888"; fontsize=12; margin=12;
+  tovarnaya_gruppa [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dbe5f1" ALIGN="CENTER"><B>Товарная группа</B><BR/><FONT POINT-SIZE="9">tovarnaya_gruppa</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код группы</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="naimenovanie"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Название</TD></TR>
+    </TABLE>>];
+  tovar [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dbe5f1" ALIGN="CENTER"><B>Товар</B><BR/><FONT POINT-SIZE="9">tovar</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код товара</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="naimenovanie"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Название</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="gruppa_id"><FONT POINT-SIZE="9">ВК</FONT> Товарная группа</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="kratnost_upakovki"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Кратность упаковки</TD></TR>
+    </TABLE>>];
+  ostatok [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dbe5f1" ALIGN="CENTER"><B>Остаток на складе</B><BR/><FONT POINT-SIZE="9">ostatok</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ПК</FONT> <B>Товар</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="kolichestvo"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Количество на складе</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="rezerv"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Зарезервировано под заявки</TD></TR>
+    </TABLE>>];
+  }
+  subgraph cluster_1 {
+    label="Поставщики"; style="rounded"; color="#888888"; fontsize=12; margin=12;
+  postavshchik [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#e5dfec" ALIGN="CENTER"><B>Поставщик</B><BR/><FONT POINT-SIZE="9">postavshchik</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код поставщика</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="naimenovanie"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Название</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="otsrochka_dney"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Отсрочка платежа, дней</TD></TR>
+    </TABLE>>];
+  prays [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#e5dfec" ALIGN="CENTER"><B>Прайс-позиция поставщика</B><BR/><FONT POINT-SIZE="9">prays</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код позиции прайса</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="postavshchik_id"><FONT POINT-SIZE="9">ВК</FONT> Поставщик</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ВК</FONT> Товар</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="cena"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Цена за единицу</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="srok_postavki_dney"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Заявленный срок поставки, дней</TD></TR>
+    </TABLE>>];
+  ocenka_postavshchika [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#e5dfec" ALIGN="CENTER"><B>Оценка поставщика</B><BR/><FONT POINT-SIZE="9">ocenka_postavshchika</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код оценки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="postavshchik_id"><FONT POINT-SIZE="9">ВК</FONT> Поставщик</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ВК</FONT> Товар</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="data_ocenki"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Дата оценки</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="itogovy_ball"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Итоговый балл</TD></TR>
+    </TABLE>>];
+  }
+  subgraph cluster_2 {
+    label="Закупка"; style="rounded"; color="#888888"; fontsize=12; margin=12;
+  zakaz_postavshchiku [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dff0d8" ALIGN="CENTER"><B>Заказ поставщику</B><BR/><FONT POINT-SIZE="9">zakaz_postavshchiku</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Номер заказа</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="postavshchik_id"><FONT POINT-SIZE="9">ВК</FONT> Поставщик</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="data_zakaza"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Дата размещения</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="plan_data_postavki"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Плановая дата поставки</TD></TR>
+    </TABLE>>];
+  stroka_zakaza [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dff0d8" ALIGN="CENTER"><B>Строка заказа</B><BR/><FONT POINT-SIZE="9">stroka_zakaza</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код строки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="zakaz_id"><FONT POINT-SIZE="9">ВК</FONT> Заказ</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ВК</FONT> Товар</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="kolichestvo"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Заказанное количество</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="cena"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Цена закупки</TD></TR>
+    </TABLE>>];
+  postavka [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dff0d8" ALIGN="CENTER"><B>Поставка</B><BR/><FONT POINT-SIZE="9">postavka</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код поставки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="zakaz_id"><FONT POINT-SIZE="9">ВК</FONT> Заказ</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="fakt_data"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Фактическая дата приёмки</TD></TR>
+    </TABLE>>];
+  stroka_postavki [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD BGCOLOR="#dff0d8" ALIGN="CENTER"><B>Строка поставки</B><BR/><FONT POINT-SIZE="9">stroka_postavki</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="id"><FONT POINT-SIZE="9">ПК</FONT> <B>Код строки</B></TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="postavka_id"><FONT POINT-SIZE="9">ВК</FONT> Поставка</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="tovar_id"><FONT POINT-SIZE="9">ВК</FONT> Товар</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="prinyato"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Принятое количество</TD></TR>
+      <TR><TD ALIGN="LEFT" PORT="brak"><FONT POINT-SIZE="9">&#160;&#160;</FONT> Забраковано при приёмке</TD></TR>
+    </TABLE>>];
+  }
+  postavka -> stroka_postavki:postavka_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  postavshchik -> ocenka_postavshchika:postavshchik_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  postavshchik -> prays:postavshchik_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  postavshchik -> zakaz_postavshchiku:postavshchik_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  tovar -> ocenka_postavshchika:tovar_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  tovar -> ostatok:tovar_id [arrowtail=tee, arrowhead=tee, label="1:1"];
+  tovar -> prays:tovar_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  tovar -> stroka_postavki:tovar_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  tovar -> stroka_zakaza:tovar_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  tovarnaya_gruppa -> tovar:gruppa_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  zakaz_postavshchiku -> postavka:zakaz_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+  zakaz_postavshchiku -> stroka_zakaza:zakaz_id [arrowtail=tee, arrowhead=crow, label="1:N"];
+}
