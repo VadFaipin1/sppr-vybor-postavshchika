@@ -51,3 +51,31 @@ def test_total_is_weighted_sum():
 def test_best_breaks_tie_by_code():
     s = [Score(2, 1, 0, 0, 0, 0, 0.5, False), Score(1, 1, 0, 0, 0, 0, 0.5, False)]
     assert best(s)[1].supplier == 1
+
+
+def test_share_cap_moves_cheapest_loss_first():
+    from sppr.plan import Line, cap_share
+
+    def line(item, sup, price, score):
+        return Line(item, f"т{item}", "A", "Y", 0, 10, 10, 10, sup, f"п{sup}", price,
+                    5, score, False, False)
+
+    # у поставщика 1 три строки из четырёх, 75 % суммы
+    lines = [line(1, 1, 10, 0.9), line(2, 1, 10, 0.9), line(3, 1, 10, 0.9),
+             line(4, 2, 10, 0.8)]
+    ranked = {
+        1: [Score(1, 1, 0, 0, 0, 0, 0.9, False), Score(3, 1, 0, 0, 0, 0, 0.5, False)],
+        2: [Score(1, 2, 0, 0, 0, 0, 0.9, False), Score(3, 2, 0, 0, 0, 0, 0.85, False)],
+        3: [Score(1, 3, 0, 0, 0, 0, 0.9, False), Score(3, 3, 0, 0, 0, 0, 0.7, False)],
+        4: [Score(2, 4, 0, 0, 0, 0, 0.8, False)],
+    }
+
+    def make(item, top):
+        return line(item, top.supplier, 10, top.total)
+
+    out = cap_share(lines, ranked, make, limit=0.5)
+    by_item = {x.item: x for x in out}
+    # уходит позиция 2: у неё самая малая потеря балла, 0,05
+    assert by_item[2].supplier == 3 and by_item[2].moved
+    assert by_item[1].supplier == 1 and not by_item[1].moved
+    assert sum(x.amount for x in out if x.supplier == 1) / sum(x.amount for x in out) <= 0.5

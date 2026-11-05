@@ -35,6 +35,7 @@ class Settings:
     holding_rate: float = 0.20         # хранение единицы в год, доля цены
     shelf_life_share: float = 0.5      # заказ не больше спроса за полсрока годности
     min_deliveries: int = 5            # меньше поставок — надёжность предварительная
+    max_supplier_share: float = 1.0    # предел доли одного поставщика; 1 — без предела
     history_start: date = date(2025, 11, 1)
     history_end: date = date(2026, 10, 31)
     abc_bounds: tuple[float, float] = (0.80, 0.95)

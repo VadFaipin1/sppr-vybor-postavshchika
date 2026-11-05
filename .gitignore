@@ -6,3 +6,4 @@ out/
 deploy/.env
 deploy/runtime/
 ansible/.secrets/
+deploy/backups/

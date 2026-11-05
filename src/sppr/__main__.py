@@ -32,20 +32,22 @@ def cmd_weights(s: Settings, args) -> int:
 def cmd_check(s: Settings, args) -> int:
     """Проверки перед расчётом; код возврата 0 — всё в порядке."""
     checks = []
+    step = "подключение к базе"                  # чтобы сбой подписать своей проверкой
     try:
         with db.connect() as conn:
-            checks.append(("подключение к базе", True, "есть"))
+            checks.append((step, True, "есть"))
+            step = "таблиц в схеме"
             n = db.table_count(conn)
-            checks.append(("таблиц в схеме", n == EXPECTED_TABLES, str(n)))
+            checks.append((step, n == EXPECTED_TABLES, str(n)))
+            step = "возраст данных, дней"
             cur = conn.cursor()
             cur.execute("SELECT max(data) FROM otgruzka")
             last = cur.fetchone()[0]
             age = (args.date - last).days if last else None
-            checks.append(("возраст данных, дней",
-                           age is not None and 0 <= age <= s.max_data_age_days,
+            checks.append((step, age is not None and 0 <= age <= s.max_data_age_days,
                            str(age)))
     except Exception as e:                       # noqa: BLE001 — сообщаем любую причину
-        checks.append(("подключение к базе", False, type(e).__name__))
+        checks.append((step, False, type(e).__name__))
     r = ahp.weights(s.pairwise)
     checks.append(("согласованность весов", r.cr < s.max_cr, f"ОС = {r.cr:.4f}"))
     for name, ok, value in checks:

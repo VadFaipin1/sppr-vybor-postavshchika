@@ -33,7 +33,8 @@ def test_plan_lines_are_valid(data):
     p = plan.build(data, Settings(), AS_OF)
     assert p.lines
     for line in p.lines:
-        assert line.available <= line.reorder_point
+        # переданная другому поставщику строка нужна по точке перезаказа лучшего
+        assert line.moved or line.available <= line.reorder_point
         assert line.quantity > 0
         assert line.quantity % data.items[line.item].pack == 0
 

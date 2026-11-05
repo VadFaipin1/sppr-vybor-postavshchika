@@ -1,0 +1,25 @@
+# Резервная копия базы стенда в собственном формате PostgreSQL.
+- name: Резервная копия базы
+  hosts: sppr
+  gather_facts: false
+  tasks:
+    - name: Каталог копий
+      ansible.builtin.file:
+        path: "{{ backup_dir }}"
+        state: directory
+        mode: "0750"
+
+    - name: Копия базы
+      ansible.builtin.shell: >-
+        {{ compose }} exec -T db pg_dump -U sppr -d vektor_opt -Fc
+        > {{ dump_file | quote }}
+
+    - name: Размер копии
+      ansible.builtin.stat:
+        path: "{{ dump_file }}"
+      register: dump
+
+    - name: Копия не пустая
+      ansible.builtin.assert:
+        that: dump.stat.size > 0
+        success_msg: "копия {{ (dump.stat.size / 1024) | round(1) }} КБ"

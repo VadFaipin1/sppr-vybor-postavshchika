@@ -1,0 +1,19 @@
+# Восстановление базы стенда из последней копии и проверка состояния.
+- name: Восстановление базы из копии
+  hosts: sppr
+  gather_facts: false
+  tasks:
+    - name: Копия существует
+      ansible.builtin.stat:
+        path: "{{ dump_file }}"
+      register: dump
+      failed_when: not dump.stat.exists
+
+    - name: Восстановление
+      ansible.builtin.shell: >-
+        {{ compose }} exec -T db pg_restore -U sppr -d vektor_opt
+        --clean --if-exists < {{ dump_file | quote }}
+
+    - name: Проверка состояния после восстановления
+      ansible.builtin.command: "{{ compose }} --profile job run --rm sppr"
+      changed_when: false
