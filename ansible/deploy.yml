@@ -1,0 +1,61 @@
+# Настройка и запуск стенда. Повторный прогон ничего не меняет.
+- name: Развёртывание системы поддержки выбора поставщика
+  hosts: sppr
+  gather_facts: false
+  tasks:
+    - name: Docker и Compose доступны
+      ansible.builtin.command: "{{ item }}"
+      loop:
+        - docker info --format '{{ "{{" }}.ServerVersion{{ "}}" }}'
+        - docker-compose version --short
+      changed_when: false
+
+    - name: Каталоги запуска и секретов
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0750"
+      loop:
+        - "{{ deploy_dir }}/runtime/out"
+        - "{{ secrets_dir }}"
+
+    - name: Файл окружения с паролем базы
+      ansible.builtin.template:
+        src: env.j2
+        dest: "{{ deploy_dir }}/.env"
+        mode: "0600"
+      vars:
+        # пароль создаётся при первом прогоне и дальше читается из файла
+        db_password: "{{ lookup('ansible.builtin.password',
+                         secrets_dir ~ '/db_password length=24 chars=ascii_letters,digits') }}"
+      no_log: true
+
+    - name: Параметры расчёта из шаблона
+      ansible.builtin.template:
+        src: sppr.json.j2
+        dest: "{{ deploy_dir }}/runtime/sppr.json"
+        mode: "0644"
+
+    - name: Есть ли образ компонента
+      ansible.builtin.command: docker image inspect {{ image }}
+      register: image_check
+      changed_when: false
+      failed_when: false
+
+    - name: Сборка образа компонента
+      ansible.builtin.command: "{{ compose }} --profile job build sppr"
+      when: image_check.rc != 0 or (rebuild | default(false) | bool)
+
+    - name: База поднята и прошла проверку здоровья
+      ansible.builtin.command: "{{ compose }} up -d --wait db"
+      register: up
+      changed_when: "'Started' in up.stderr or 'Created' in up.stderr"
+
+    - name: Проверка состояния компонента и данных
+      ansible.builtin.command: "{{ compose }} --profile job run --rm sppr"
+      register: check
+      changed_when: false
+
+    - name: Результат проверки
+      ansible.builtin.debug:
+        var: check.stdout_lines

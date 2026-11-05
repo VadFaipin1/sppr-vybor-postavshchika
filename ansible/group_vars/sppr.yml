@@ -1,0 +1,25 @@
+project_dir: "{{ playbook_dir | dirname }}"
+deploy_dir: "{{ project_dir }}/deploy"
+secrets_dir: "{{ playbook_dir }}/.secrets"
+# путь к работе содержит пробел: без quote модуль command режет его на части
+compose: >-
+  docker-compose -f {{ (deploy_dir ~ "/docker-compose.yml") | quote }}
+  --env-file {{ (deploy_dir ~ "/.env") | quote }}
+image: sppr:1.0.0
+
+sppr_date: "2026-11-01"
+
+# параметры расчёта: попадают в runtime/sppr.json через шаблон
+sppr_params:
+  normalization: tolerance
+  price_tolerance: 0.20
+  lead_tolerance: 2.0
+  order_cost: 1200
+  holding_rate: 0.20
+  min_deliveries: 5
+  max_cr: 0.10
+  pairwise:
+    - [1, 2, 1, 4]
+    - ["1/2", 1, "1/2", 3]
+    - [1, 2, 1, 4]
+    - ["1/4", "1/3", "1/4", 1]

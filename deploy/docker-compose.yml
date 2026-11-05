@@ -1,0 +1,41 @@
+# Стенд: база с учебными данными и компонент, который запускается по требованию.
+# Пароль и дата расчёта приходят из .env, его создаёт плейбук Ansible.
+name: sppr
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: vektor_opt
+      POSTGRES_USER: sppr
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?нет пароля в .env}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - ../db/01_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ../db/02_data.sql:/docker-entrypoint-initdb.d/02_data.sql:ro
+    healthcheck:
+      # по TCP, а не через сокет: пока идёт начальная загрузка, сервер слушает
+      # только сокет, и проверка через него прошла бы до конца загрузки
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U sppr -d vektor_opt"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  sppr:
+    image: sppr:1.0.0
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    profiles: ["job"]
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://sppr:${POSTGRES_PASSWORD}@db:5432/vektor_opt
+    volumes:
+      - ./runtime/sppr.json:/app/config/sppr.json:ro
+      - ./runtime/out:/app/out
+    command: ["--config", "/app/config/sppr.json", "check", "--date", "${SPPR_DATE}"]
+
+volumes:
+  dbdata:

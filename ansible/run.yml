@@ -1,0 +1,26 @@
+# Расчёт проекта заказа на дату и контроль результата.
+- name: Расчёт проекта заказа
+  hosts: sppr
+  gather_facts: false
+  tasks:
+    - name: Проект заказа и рейтинг поставщиков
+      ansible.builtin.command: >-
+        {{ compose }} --profile job run --rm sppr
+        --config /app/config/sppr.json plan --date {{ sppr_date }} --out /app/out
+
+    - name: Итог расчёта
+      ansible.builtin.slurp:
+        src: "{{ deploy_dir }}/runtime/out/status.json"
+      register: status_raw
+
+    - name: Контроль результата
+      ansible.builtin.assert:
+        that:
+          - status['позиций к заказу'] | int > 0
+          - status['оценок записано'] | int > 0
+          - status['отношение согласованности'] | float < 0.1
+        success_msg: >-
+          к заказу {{ status['позиций к заказу'] }} позиций
+          на {{ status['сумма заказа'] }} руб.
+      vars:
+        status: "{{ status_raw.content | b64decode | from_json }}"
