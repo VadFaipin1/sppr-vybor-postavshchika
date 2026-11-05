@@ -70,11 +70,7 @@ def _line(item_id: int, top: rejting.Score, data: Data, s: Settings,
 
 def cap_share(lines: list[Line], ranked: dict[int, list[rejting.Score]],
               make, limit: float) -> list[Line]:
-    """Не больше limit суммы заказа у одного поставщика.
-
-    Пока доля кого-то выше предела, у него забирается строка с наименьшей
-    потерей балла и отдаётся следующему в рейтинге позиции.
-    """
+    """Не больше limit суммы у одного поставщика: лишнее — следующему в рейтинге."""
     lines = list(lines)
     for _ in range(len(lines) * 4):
         total = sum(x.amount for x in lines)
