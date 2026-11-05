@@ -18,7 +18,6 @@
       loop:
         - "{{ deploy_dir }}/runtime/out"
         - "{{ secrets_dir }}"
-
     - name: Файл окружения с паролем базы
       ansible.builtin.template:
         src: env.j2
@@ -41,7 +40,6 @@
       register: image_check
       changed_when: false
       failed_when: false
-
     - name: Сборка образа компонента
       ansible.builtin.command: "{{ compose }} --profile job build sppr"
       when: image_check.rc != 0 or (rebuild | default(false) | bool)
@@ -55,7 +53,6 @@
       ansible.builtin.command: "{{ compose }} --profile job run --rm sppr"
       register: check
       changed_when: false
-
     - name: Результат проверки
       ansible.builtin.debug:
         var: check.stdout_lines

@@ -50,6 +50,14 @@ def main() -> None:
         строки.append(f"{имя:<28} {переплата:>13.2f} {срок:>9.2f} {в_срок:>10.1f}"
                       f" {не_дешёвый:>17} {отличий:>15}")
     строки.append("")
+    строки.append("предложения по позициям из текста (цена, срок, доля в срок, дороже самого дешёвого):")
+    for i in (17, 27, 32):
+        строки.append(f"  {d.items[i].name}:")
+        for o in sorted((o for o in d.offers if o.item == i), key=lambda o: o.price):
+            строки.append(f"    {d.suppliers[o.supplier][0]} | {o.price:.2f} руб. | "
+                          f"{o.lead_days} дн | в срок {надёжность[o.supplier]:.3f} | "
+                          f"+{(o.price / лучшая_цена[i] - 1) * 100:.1f} %")
+    строки.append("")
     for i in (1, 17, 27, 32):
         имена = {м: d.suppliers[выбор[м][i].supplier][0] for м, _ in СПОСОБЫ}
         строки.append(f"{d.items[i].name}: " + "; ".join(f"{м} — {имена[м]}" for м, _ in СПОСОБЫ))
