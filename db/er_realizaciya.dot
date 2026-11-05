@@ -1,5 +1,5 @@
 digraph ER {
-  graph [rankdir=TB, splines=ortho, nodesep=0.30, ranksep=0.7, fontname="Times New Roman", fontsize=12, compound=true];
+  graph [rankdir=TB, splines=ortho, nodesep=0.15, ranksep=0.45, fontname="Times New Roman", fontsize=12, compound=true];
   node [shape=plaintext, fontname="Times New Roman", fontsize=11];
   edge [fontname="Times New Roman", fontsize=9, dir=both, color="#444444"];
   subgraph cluster_0 {

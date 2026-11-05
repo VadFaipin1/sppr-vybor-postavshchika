@@ -145,7 +145,7 @@ def dot(только=None, rankdir="TB") -> str:
 
     строки = [
         "digraph ER {",
-        f'  graph [rankdir={rankdir}, splines=ortho, nodesep=0.30, ranksep=0.7,'
+        f'  graph [rankdir={rankdir}, splines=ortho, nodesep=0.15, ranksep=0.45,'
         f' fontname="{ШРИФТ}", fontsize=12, compound=true];',
         f'  node [shape=plaintext, fontname="{ШРИФТ}", fontsize=11];',
         f'  edge [fontname="{ШРИФТ}", fontsize=9, dir=both, color="#444444"];',
