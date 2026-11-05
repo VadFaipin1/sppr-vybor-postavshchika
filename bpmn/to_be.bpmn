@@ -19,7 +19,7 @@
 <bpmn:startEvent id="Event_09" name="Ежедневный&#10;расчёт"><bpmn:outgoing>Flow_25</bpmn:outgoing><bpmn:timerEventDefinition id="EventDefinition_10" /></bpmn:startEvent>
 <bpmn:dataStoreReference id="DataStoreReference_11" name="База закупок"></bpmn:dataStoreReference>
 <bpmn:serviceTask id="Activity_12" name="Рассчитать проект заказа и рейтинг"><bpmn:incoming>Flow_25</bpmn:incoming><bpmn:outgoing>Flow_26</bpmn:outgoing><bpmn:property id="Property_36" name="__targetRef_placeholder" /><bpmn:dataInputAssociation id="DataInputAssociation_35"><bpmn:sourceRef>DataStoreReference_11</bpmn:sourceRef><bpmn:targetRef>Property_36</bpmn:targetRef></bpmn:dataInputAssociation></bpmn:serviceTask>
-<bpmn:exclusiveGateway id="Gateway_13" name="Есть позиции к&#10;заказу?"><bpmn:incoming>Flow_26</bpmn:incoming><bpmn:outgoing>Flow_27</bpmn:outgoing><bpmn:outgoing>Flow_28</bpmn:outgoing></bpmn:exclusiveGateway>
+<bpmn:exclusiveGateway id="Gateway_13" name="Есть позиции&#10;к заказу?"><bpmn:incoming>Flow_26</bpmn:incoming><bpmn:outgoing>Flow_27</bpmn:outgoing><bpmn:outgoing>Flow_28</bpmn:outgoing></bpmn:exclusiveGateway>
 <bpmn:endEvent id="Event_14" name="Заказ не&#10;требуется"><bpmn:incoming>Flow_27</bpmn:incoming><bpmn:cancelEventDefinition id="EventDefinition_15" /></bpmn:endEvent>
 <bpmn:userTask id="Activity_16" name="Проверить проект заказа"><bpmn:incoming>Flow_28</bpmn:incoming><bpmn:outgoing>Flow_29</bpmn:outgoing></bpmn:userTask>
 <bpmn:subProcess id="Activity_17" name="Согласовать и разместить заказ"><bpmn:incoming>Flow_29</bpmn:incoming><bpmn:outgoing>Flow_30</bpmn:outgoing></bpmn:subProcess>
@@ -42,42 +42,42 @@
 </bpmn:process>
 <bpmndi:BPMNDiagram id="BPMNDiagram_to_be">
 <bpmndi:BPMNPlane id="BPMNPlane_to_be" bpmnElement="Collaboration_to_be">
-<bpmndi:BPMNShape id="Participant_01_di" bpmnElement="Participant_01" isHorizontal="true"><dc:Bounds x="0" y="0" width="1345" height="660" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="Lane_03_di" bpmnElement="Lane_03" isHorizontal="true"><dc:Bounds x="30" y="0" width="1315" height="180" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="Lane_04_di" bpmnElement="Lane_04" isHorizontal="true"><dc:Bounds x="30" y="180" width="1315" height="150" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="Lane_05_di" bpmnElement="Lane_05" isHorizontal="true"><dc:Bounds x="30" y="330" width="1315" height="190" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="Lane_06_di" bpmnElement="Lane_06" isHorizontal="true"><dc:Bounds x="30" y="520" width="1315" height="140" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="Participant_07_di" bpmnElement="Participant_07" isHorizontal="true"><dc:Bounds x="0" y="710" width="1010" height="60" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="Participant_08_di" bpmnElement="Participant_08" isHorizontal="true"><dc:Bounds x="1050" y="710" width="295" height="60" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#a9e0b3" color:background-color="#a9e0b3" id="Event_09_di" bpmnElement="Event_09"><dc:Bounds x="77" y="107" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="59" y="148" width="71" height="29" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="DataStoreReference_11_di" bpmnElement="DataStoreReference_11"><dc:Bounds x="190" y="15" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="112" y="33" width="72" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_12_di" bpmnElement="Activity_12"><dc:Bounds x="152" y="78" width="125" height="95" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#fdf1b8" color:background-color="#fdf1b8" id="Gateway_13_di" bpmnElement="Gateway_13" isMarkerVisible="true"><dc:Bounds x="310" y="100" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="366" y="111" width="83" height="29" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#f5a8a1" color:background-color="#f5a8a1" id="Event_14_di" bpmnElement="Event_14"><dc:Bounds x="317" y="22" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="359" y="26" width="56" height="29" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_16_di" bpmnElement="Activity_16"><dc:Bounds x="398" y="208" width="125" height="95" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_17_di" bpmnElement="Activity_17" isExpanded="false"><dc:Bounds x="532" y="205" width="135" height="100" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#f4d19c" color:background-color="#f4d19c" id="Event_18_di" bpmnElement="Event_18"><dc:Bounds x="697" y="432" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="689" y="398" width="52" height="29" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_20_di" bpmnElement="Activity_20" isExpanded="false"><dc:Bounds x="772" y="400" width="125" height="100" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_21_di" bpmnElement="Activity_21"><dc:Bounds x="904" y="402" width="135" height="95" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape id="DataStoreReference_22_di" bpmnElement="DataStoreReference_22"><dc:Bounds x="945" y="338" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="1001" y="356" width="72" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_23_di" bpmnElement="Activity_23" isExpanded="false"><dc:Bounds x="1038" y="542" width="125" height="95" /></bpmndi:BPMNShape>
-<bpmndi:BPMNShape bioc:fill="#f5a8a1" color:background-color="#f5a8a1" id="Event_24_di" bpmnElement="Event_24"><dc:Bounds x="1207" y="572" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1249" y="561" width="54" height="58" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
-<bpmndi:BPMNEdge id="Flow_25_di" bpmnElement="Flow_25"><di:waypoint x="113" y="125" /><di:waypoint x="152" y="125" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_26_di" bpmnElement="Flow_26"><di:waypoint x="278" y="125" /><di:waypoint x="310" y="125" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_27_di" bpmnElement="Flow_27"><di:waypoint x="335" y="100" /><di:waypoint x="335" y="58" /><bpmndi:BPMNLabel><dc:Bounds x="341" y="80" width="23" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_28_di" bpmnElement="Flow_28"><di:waypoint x="335" y="150" /><di:waypoint x="335" y="255" /><di:waypoint x="398" y="255" /><bpmndi:BPMNLabel><dc:Bounds x="341" y="155" width="17" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_29_di" bpmnElement="Flow_29"><di:waypoint x="522" y="255" /><di:waypoint x="532" y="255" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_30_di" bpmnElement="Flow_30"><di:waypoint x="668" y="255" /><di:waypoint x="682" y="255" /><di:waypoint x="682" y="450" /><di:waypoint x="697" y="450" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_31_di" bpmnElement="Flow_31"><di:waypoint x="733" y="450" /><di:waypoint x="772" y="450" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_32_di" bpmnElement="Flow_32"><di:waypoint x="898" y="450" /><di:waypoint x="904" y="450" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_33_di" bpmnElement="Flow_33"><di:waypoint x="1040" y="450" /><di:waypoint x="1038" y="450" /><di:waypoint x="1038" y="590" /><di:waypoint x="1038" y="590" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="Flow_34_di" bpmnElement="Flow_34"><di:waypoint x="1162" y="590" /><di:waypoint x="1207" y="590" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="MessageFlow_38_di" bpmnElement="MessageFlow_38"><di:waypoint x="600" y="305" /><di:waypoint x="600" y="710" /><bpmndi:BPMNLabel><dc:Bounds x="606" y="678" width="33" height="14" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="MessageFlow_39_di" bpmnElement="MessageFlow_39"><di:waypoint x="715" y="710" /><di:waypoint x="715" y="468" /><bpmndi:BPMNLabel><dc:Bounds x="721" y="671" width="73" height="29" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="MessageFlow_40_di" bpmnElement="MessageFlow_40"><di:waypoint x="1070" y="710" /><di:waypoint x="1070" y="638" /><bpmndi:BPMNLabel><dc:Bounds x="1018" y="671" width="46" height="29" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="MessageFlow_41_di" bpmnElement="MessageFlow_41"><di:waypoint x="1130" y="638" /><di:waypoint x="1130" y="710" /><bpmndi:BPMNLabel><dc:Bounds x="1136" y="671" width="36" height="29" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="DataInputAssociation_35_di" bpmnElement="DataInputAssociation_35"><di:waypoint x="215" y="65" /><di:waypoint x="215" y="78" /></bpmndi:BPMNEdge>
-<bpmndi:BPMNEdge id="DataOutputAssociation_37_di" bpmnElement="DataOutputAssociation_37"><di:waypoint x="972" y="402" /><di:waypoint x="970" y="388" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNShape id="Participant_01_di" bpmnElement="Participant_01" isHorizontal="true"><dc:Bounds x="0" y="0" width="1185" height="628" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_03_di" bpmnElement="Lane_03" isHorizontal="true"><dc:Bounds x="30" y="0" width="1155" height="190" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_04_di" bpmnElement="Lane_04" isHorizontal="true"><dc:Bounds x="30" y="190" width="1155" height="130" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_05_di" bpmnElement="Lane_05" isHorizontal="true"><dc:Bounds x="30" y="320" width="1155" height="150" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Lane_06_di" bpmnElement="Lane_06" isHorizontal="true"><dc:Bounds x="30" y="470" width="1155" height="158" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Participant_07_di" bpmnElement="Participant_07" isHorizontal="true"><dc:Bounds x="0" y="678" width="905" height="50" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="Participant_08_di" bpmnElement="Participant_08" isHorizontal="true"><dc:Bounds x="925" y="678" width="260" height="50" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#a9e0b3" color:background-color="#a9e0b3" id="Event_09_di" bpmnElement="Event_09"><dc:Bounds x="82" y="112" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="61" y="153" width="77" height="31" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="DataStoreReference_11_di" bpmnElement="DataStoreReference_11"><dc:Bounds x="190" y="10" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="106" y="27" width="78" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_12_di" bpmnElement="Activity_12"><dc:Bounds x="150" y="78" width="130" height="104" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#fdf1b8" color:background-color="#fdf1b8" id="Gateway_13_di" bpmnElement="Gateway_13" isMarkerVisible="true"><dc:Bounds x="315" y="105" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="371" y="114" width="81" height="31" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#f5a8a1" color:background-color="#f5a8a1" id="Event_14_di" bpmnElement="Event_14"><dc:Bounds x="322" y="17" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="364" y="19" width="61" height="31" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_16_di" bpmnElement="Activity_16"><dc:Bounds x="405" y="203" width="130" height="104" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_17_di" bpmnElement="Activity_17" isExpanded="false"><dc:Bounds x="548" y="205" width="135" height="100" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#f4d19c" color:background-color="#f4d19c" id="Event_18_di" bpmnElement="Event_18"><dc:Bounds x="717" y="389" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="719" y="353" width="56" height="31" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_20_di" bpmnElement="Activity_20" isExpanded="false"><dc:Bounds x="790" y="355" width="130" height="104" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_21_di" bpmnElement="Activity_21"><dc:Bounds x="942" y="355" width="135" height="104" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape id="DataStoreReference_22_di" bpmnElement="DataStoreReference_22"><dc:Bounds x="1105" y="382" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="1091" y="437" width="78" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#cfe7f6" color:background-color="#cfe7f6" id="Activity_23_di" bpmnElement="Activity_23" isExpanded="false"><dc:Bounds x="945" y="492" width="130" height="95" /></bpmndi:BPMNShape>
+<bpmndi:BPMNShape bioc:fill="#f5a8a1" color:background-color="#f5a8a1" id="Event_24_di" bpmnElement="Event_24"><dc:Bounds x="1107" y="521" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="1096" y="562" width="58" height="62" /></bpmndi:BPMNLabel></bpmndi:BPMNShape>
+<bpmndi:BPMNEdge id="Flow_25_di" bpmnElement="Flow_25"><di:waypoint x="118" y="130" /><di:waypoint x="150" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_26_di" bpmnElement="Flow_26"><di:waypoint x="280" y="130" /><di:waypoint x="315" y="130" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_27_di" bpmnElement="Flow_27"><di:waypoint x="340" y="105" /><di:waypoint x="340" y="53" /><bpmndi:BPMNLabel><dc:Bounds x="346" y="85" width="25" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_28_di" bpmnElement="Flow_28"><di:waypoint x="340" y="155" /><di:waypoint x="340" y="255" /><di:waypoint x="405" y="255" /><bpmndi:BPMNLabel><dc:Bounds x="346" y="160" width="18" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_29_di" bpmnElement="Flow_29"><di:waypoint x="535" y="255" /><di:waypoint x="548" y="255" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_30_di" bpmnElement="Flow_30"><di:waypoint x="682" y="255" /><di:waypoint x="700" y="255" /><di:waypoint x="700" y="407" /><di:waypoint x="717" y="407" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_31_di" bpmnElement="Flow_31"><di:waypoint x="753" y="407" /><di:waypoint x="790" y="407" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_32_di" bpmnElement="Flow_32"><di:waypoint x="920" y="407" /><di:waypoint x="942" y="407" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_33_di" bpmnElement="Flow_33"><di:waypoint x="1010" y="459" /><di:waypoint x="1010" y="492" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="Flow_34_di" bpmnElement="Flow_34"><di:waypoint x="1075" y="539" /><di:waypoint x="1107" y="539" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="MessageFlow_38_di" bpmnElement="MessageFlow_38"><di:waypoint x="580" y="305" /><di:waypoint x="580" y="678" /><bpmndi:BPMNLabel><dc:Bounds x="538" y="645" width="36" height="16" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="MessageFlow_39_di" bpmnElement="MessageFlow_39"><di:waypoint x="735" y="678" /><di:waypoint x="735" y="425" /><bpmndi:BPMNLabel><dc:Bounds x="650" y="637" width="79" height="31" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="MessageFlow_40_di" bpmnElement="MessageFlow_40"><di:waypoint x="975" y="678" /><di:waypoint x="975" y="586" /><bpmndi:BPMNLabel><dc:Bounds x="919" y="637" width="50" height="31" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="MessageFlow_41_di" bpmnElement="MessageFlow_41"><di:waypoint x="1050" y="586" /><di:waypoint x="1050" y="678" /><bpmndi:BPMNLabel><dc:Bounds x="1056" y="637" width="39" height="31" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DataInputAssociation_35_di" bpmnElement="DataInputAssociation_35"><di:waypoint x="215" y="60" /><di:waypoint x="215" y="78" /></bpmndi:BPMNEdge>
+<bpmndi:BPMNEdge id="DataOutputAssociation_37_di" bpmnElement="DataOutputAssociation_37"><di:waypoint x="1078" y="407" /><di:waypoint x="1105" y="407" /></bpmndi:BPMNEdge>
 </bpmndi:BPMNPlane>
 </bpmndi:BPMNDiagram>
 </bpmn:definitions>
