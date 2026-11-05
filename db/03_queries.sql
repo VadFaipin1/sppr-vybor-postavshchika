@@ -170,6 +170,33 @@ WHERE o.kolichestvo - o.rezerv < d.sr_den * s.L + 1.65 * d.sigma * sqrt(s.L)
 ORDER BY хватит_на_дней
 LIMIT 12;
 
+-- 6б. Сколько всего позиций ниже точки перезаказа и сколько из них
+-- не доживут даже до прихода заказа, размещённого сегодня
+WITH dni AS (
+    SELECT generate_series(DATE '2025-11-01', DATE '2026-10-31', '1 day')::date AS d
+), po_dnyam AS (
+    SELECT t.id AS tovar_id, dni.d, coalesce(sum(so.kolichestvo), 0) AS za_den
+    FROM tovar t
+        CROSS JOIN dni
+        LEFT JOIN otgruzka o        ON o.data = dni.d
+        LEFT JOIN stroka_otgruzki so ON so.otgruzka_id = o.id AND so.tovar_id = t.id
+    GROUP BY t.id, dni.d
+), dnevnoy AS (
+    SELECT tovar_id, avg(za_den) AS sr_den, stddev_samp(za_den) AS sigma
+    FROM po_dnyam GROUP BY tovar_id
+), srok AS (
+    SELECT tovar_id, min(srok_postavki_dney) AS L FROM prays GROUP BY tovar_id
+)
+SELECT count(*) FILTER (WHERE o.kolichestvo - o.rezerv
+                              < d.sr_den * s.L + 1.65 * d.sigma * sqrt(s.L))
+           AS ниже_точки_перезаказа,
+       count(*) FILTER (WHERE (o.kolichestvo - o.rezerv) / d.sr_den < s.L)
+           AS кончатся_до_поставки,
+       count(*) AS всего_позиций
+FROM dnevnoy d
+    JOIN srok s    USING (tovar_id)
+    JOIN ostatok o USING (tovar_id);
+
 -- 7. Заполнение рейтинга поставщиков.
 -- Веса критериев: цена 0,35, срок 0,25, надёжность 0,30, отсрочка 0,10.
 -- Балл нормирован в диапазон от 0 до 1, у единственного поставщика позиции балл 1.
