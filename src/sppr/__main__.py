@@ -30,7 +30,7 @@ def cmd_weights(s: Settings, args) -> int:
 
 
 def cmd_check(s: Settings, args) -> int:
-    """Проверки, без которых расчёт запускать нельзя. Код возврата 0 — всё в порядке."""
+    """Проверки перед расчётом; код возврата 0 — всё в порядке."""
     checks = []
     try:
         with db.connect() as conn:

@@ -39,4 +39,4 @@ tests/test_zapasy.py::test_shelf_life_cap_rounds_down PASSED             [ 93%]
 tests/test_zapasy.py::test_shelf_life_cap_keeps_one_pack PASSED          [ 96%]
 tests/test_zapasy.py::test_shelf_cap_for_unlimited_life PASSED           [100%]
 
-============================== 32 passed in 0.26s ==============================
+============================== 32 passed in 0.29s ==============================

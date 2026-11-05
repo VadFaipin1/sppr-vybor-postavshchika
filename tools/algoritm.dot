@@ -1,0 +1,54 @@
+digraph A {
+  graph [rankdir=TB, nodesep=0.35, ranksep=0.28, fontname="Times New Roman"];
+  node [fontname="Times New Roman", fontsize=12, margin="0.12,0.05"];
+  edge [fontname="Times New Roman", fontsize=11, arrowsize=0.7];
+  "начало" [shape=box, style="rounded,filled", fillcolor="#f2f2f2", label="Начало"];
+  "ввод" [shape=polygon, sides=4, skew=0.18, style=filled, fillcolor="#e8f0e0", label="Параметры расчёта,
+дата расчёта"];
+  "веса" [shape=box, style=filled, fillcolor="#dbe5f1", label="Веса критериев
+методом анализа иерархий"];
+  "ос" [shape=diamond, style=filled, fillcolor="#fdebd0", label="ОС < 0,1?"];
+  "отказ" [shape=polygon, sides=4, skew=0.18, style=filled, fillcolor="#e8f0e0", label="Сообщение
+о несогласованности"];
+  "данные" [shape=polygon, sides=4, skew=0.18, style=filled, fillcolor="#e8f0e0", label="Продажи, остатки, прайсы,
+исполнение поставок"];
+  "классы" [shape=box, style=filled, fillcolor="#dbe5f1", label="Классы ABC и XYZ"];
+  "рейтинг" [shape=box, style=filled, fillcolor="#dbe5f1", label="Баллы поставщиков
+по всем позициям"];
+  "цикл" [shape=diamond, style=filled, fillcolor="#fdebd0", label="Есть ещё
+позиция?"];
+  "лучший" [shape=box, style=filled, fillcolor="#dbe5f1", label="Лучший поставщик позиции,
+его срок поставки"];
+  "тп" [shape=box, style=filled, fillcolor="#dbe5f1", label="Точка перезаказа
+по уровню обслуживания класса"];
+  "нужно" [shape=diamond, style=filled, fillcolor="#fdebd0", label="Доступно ≤
+точки перезаказа?"];
+  "партия" [shape=box, style=filled, fillcolor="#dbe5f1", label="Экономичная партия,
+потолок по сроку годности,
+кратность упаковки"];
+  "строка" [shape=box, style=filled, fillcolor="#dbe5f1", label="Строка проекта заказа"];
+  "минимум" [shape=box, style=filled, fillcolor="#dbe5f1", label="Сверка с минимальной
+суммой заказа"];
+  "вывод" [shape=polygon, sides=4, skew=0.18, style=filled, fillcolor="#e8f0e0", label="Проект заказа, рейтинг,
+состояние; оценки в базу"];
+  "конец" [shape=box, style="rounded,filled", fillcolor="#f2f2f2", label="Конец"];
+  "начало" -> "ввод" [];
+  "ввод" -> "веса" [];
+  "веса" -> "ос" [];
+  "ос" -> "отказ" [taillabel="нет", labeldistance=1.6, labelangle=-35];
+  "отказ" -> "конец" [];
+  "ос" -> "данные" [taillabel="да", labeldistance=1.6, labelangle=-35];
+  "данные" -> "классы" [];
+  "классы" -> "рейтинг" [];
+  "рейтинг" -> "цикл" [];
+  "цикл" -> "лучший" [taillabel="да", labeldistance=1.6, labelangle=-35];
+  "лучший" -> "тп" [];
+  "тп" -> "нужно" [];
+  "нужно" -> "партия" [taillabel="да", labeldistance=1.6, labelangle=-35];
+  "нужно" -> "цикл" [taillabel="нет", labeldistance=1.6, labelangle=-35, constraint=false];
+  "партия" -> "строка" [];
+  "строка" -> "цикл" [constraint=false];
+  "цикл" -> "минимум" [taillabel="нет", labeldistance=1.6, labelangle=-35];
+  "минимум" -> "вывод" [];
+  "вывод" -> "конец" [];
+}

@@ -34,16 +34,10 @@ class Score:
 
 def lower_is_better(value: float, lo: float, hi: float, method: str = "tolerance",
                     tolerance: float = 0.2) -> float:
-    """Нормировка критерия, у которого меньше — лучше. Лучший получает 1.
+    """Балл критерия, у которого меньше — лучше: у лучшего 1.
 
-    «range» — по размаху, как в подразделе 2.2: худший получает 0, сколько бы
-    он ни уступал. Разница цен в 2 % даёт тот же разброс баллов, что и в 50 %.
-    «ratio» — отношение к лучшему: малая разница остаётся малой, но у цены
-    разброс узкий, а у срока широкий, и цена перестаёт влиять на выбор.
-    «tolerance» — балл падает линейно до 0 при отставании от лучшего
-    на допуск tolerance (доля лучшего значения). Сколько стоит отставание,
-    задаёт допуск, а не случайный состав предложений.
-    """
+    range — по размаху, ratio — отношение к лучшему,
+    tolerance — линейно до 0 при отставании на допуск."""
     if method == "range":
         return 1.0 if hi == lo else (hi - value) / (hi - lo)
     if method == "ratio":
@@ -55,12 +49,7 @@ def lower_is_better(value: float, lo: float, hi: float, method: str = "tolerance
 
 def reliability(tracks: dict[int, Track], suppliers: set[int],
                 min_deliveries: int) -> dict[int, tuple[float, bool]]:
-    """Доля поставок в срок.
-
-    У поставщика с короткой историей доля ничего не говорит, а ноль закрыл бы
-    ему дорогу в рейтинг. Ему ставится медиана по поставщикам с достаточной
-    историей, и оценка помечается как предварительная.
-    """
+    """Доля поставок в срок; при короткой истории — медиана, оценка предварительная."""
     known = [t.on_time / t.deliveries for t in tracks.values()
              if t.deliveries >= min_deliveries]
     neutral = median(known) if known else 0.5

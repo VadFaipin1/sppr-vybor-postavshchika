@@ -109,7 +109,7 @@ def load(conn: psycopg.Connection, start: date, end: date, as_of: date) -> Data:
 
 
 def save_scores(conn: psycopg.Connection, scores: list[Score], as_of: date) -> int:
-    """Оценки на дату расчёта перезаписываются, история прошлых дат остаётся."""
+    """Перезаписать оценки на дату расчёта, прошлые даты не трогать."""
     with conn.transaction():
         cur = conn.cursor()
         cur.execute("DELETE FROM ocenka_postavshchika WHERE data_ocenki = %s", (as_of,))
